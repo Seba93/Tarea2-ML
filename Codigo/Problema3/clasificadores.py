@@ -4,6 +4,7 @@ from sklearn.metrics import classification_report
 from sklearn.naive_bayes import BernoulliNB, MultinomialNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
 
 #Se construye funcion score_model, la cual evalua el desempeno de un determinado clasificador
 def score_model(model, x, y, xt, yt, text):
@@ -57,3 +58,12 @@ def SVM(x,y,xt,yt, bestvalue):
         model = model.fit(x,y)
         score_model(model, x, y, xt, yt, "SVM")
         return model
+    
+#Implementacion de modelo k-NN
+def KNN(x,y,xt,yt, max_k):
+    Ks = range(1, max_k + 1, max_k/5)
+    for K in Ks:
+        print "Usando k = %f"%K
+        model = KNeighborsClassifier(n_neighbors=K)
+        model = model.fit(x,y)
+        score_model(model, x, y, xt, yt, "k-NN")
